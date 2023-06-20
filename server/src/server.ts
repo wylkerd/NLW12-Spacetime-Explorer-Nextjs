@@ -1,3 +1,15 @@
-const nome: string = `teste`
+import fastify from 'fastify'
 
-console.log(nome)
+const app = fastify()
+
+app
+  .listen({
+    port: 3333,
+  })
+  .then(() => {
+    console.log('🚀 HTTP server runing on http://localhost:3333') // emoji adicionado com windows + .
+  })
+
+app.get('/hello', () => {
+  return 'Hello World'
+})
