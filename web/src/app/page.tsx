@@ -1,7 +1,9 @@
-import Image from 'next/image'
-
 export default function Home() {
-  return (
-    <h1>Hello World</h1>
-  )
+  return <div className="text-2xl">oi</div>
 }
+
+/* 
+  No Nextjs as rotas (roteamento) sao criadas automaticamente 
+  ao criar arquivos 'page.tsx'dentro da estrutura da pasta app, 
+  por exemplo app/login/page.tsx, bastaria acessar localhost:3000/login 
+*/
