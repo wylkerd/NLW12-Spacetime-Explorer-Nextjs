@@ -1,5 +1,5 @@
 export default function Home() {
-  return <div className="text-2xl">oi</div>
+  return <div className="rounded text-2xl">oi</div>
 }
 
 /* 
