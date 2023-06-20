@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id   String @id @default(uuid()) // Universal unique identifier
+  name String
+}
+
+// Iniciar o prisma no projeto
+// npx prisma init --datasource-provider sqlite
+
+// Criar banco com Migration do Prisma
+// npx prisma migrate dev --name init ou npx prisma migrate dev
+
+// Verificar dados na ferramenta integrada Prisma Studio
+// npx prisma studio
