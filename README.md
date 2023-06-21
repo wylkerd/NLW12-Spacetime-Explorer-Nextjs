@@ -1,4 +1,4 @@
-# Spacetime Explorer - Ignite
+# 🌌⌛ Spacetime Explorer - Ignite
 ## 💻 Projeto
 
 Aplicação de recordação de memórias, onde o usuário poderá adicionar à uma timeline textos, fotos e vídeos de acontecimentos marcantes da sua vida, organizados por mês e ano.
@@ -11,10 +11,10 @@ Aplicação de recordação de memórias, onde o usuário poderá adicionar à u
 
 ## 🔗 Links
 
-[Setup do Diego](https://efficient-sloth-d85.notion.site/Setup-do-Diego-e153f5d7e0864bf4982dd6ad3f89cf3c).
-[Repositorio do projeto da Rocket](https://github.com/rocketseat-education/nlw-12-spacetime-ignite).
-[Figma do projeto](https://www.figma.com/community/file/1240070456276424762).
-[Rocketseat docs | Ambiente React Native](https://react-native.rocketseat.dev/).
+- [Setup do Diego](https://efficient-sloth-d85.notion.site/Setup-do-Diego-e153f5d7e0864bf4982dd6ad3f89cf3c).
+- [Repositorio do projeto da Rocket](https://github.com/rocketseat-education/nlw-12-spacetime-ignite).
+- [Figma do projeto](https://www.figma.com/community/file/1240070456276424762).
+- [Rocketseat docs | Ambiente React Native](https://react-native.rocketseat.dev/).
 
 ## 📝 Licença
 
