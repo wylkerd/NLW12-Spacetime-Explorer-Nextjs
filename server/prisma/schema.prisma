@@ -8,8 +8,25 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(uuid()) // Universal unique identifier
-  name String
+  id        String   @id @default(uuid()) // Universal unique identifier
+  gitHubId  Int      @unique // Id do usuario no GitHub
+  name      String
+  login     String // Usuario login do GitHub
+  avatarUrl String // Foto do Usuario no GitHub
+  memories  Memory[]
+}
+
+model Memory {
+  id     String @id @default(uuid()) // Universal unique identifier
+  userId String
+
+  coverUrl  String // Imagem timeline
+  content   String
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // A config do prisma no settings(JSON) cria o relacionamento automaticamente se salva user User
+  user User @relation(fields: [userId], references: [id])
 }
 
 // Iniciar o prisma no projeto
