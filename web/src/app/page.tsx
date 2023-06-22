@@ -1,8 +1,6 @@
-import { User } from 'lucide-react'
-
 import { Copyright } from '@/components/Copyright'
 import { Hero } from '@/components/Hero'
-import { SignIn } from '@/components/Signin'
+import { SignIn } from '@/components/SignIn'
 import { EmptyMemories } from '@/components/EmptyMemories'
 
 export default function Home() {

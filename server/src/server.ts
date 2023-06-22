@@ -24,10 +24,10 @@ app.register(authRoutes)
 app
   .listen({
     port: 3333,
-    host: '0.0.0.0',
+    host: 'localhost',
   })
   .then(() => {
-    console.log('🚀 HTTP server runing on http://localhost:3333') // emoji adicionado com windows + .
+    console.log('🚀 HTTP server running on port http://localhost:3333') // emoji adicionado com windows + .
   })
 
 // Acessar o banco de dados pelo servidor
