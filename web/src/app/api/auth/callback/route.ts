@@ -1,5 +1,4 @@
 // Metodo GET pois estamos acessando uma url no navegador
-
 import { api } from '@/lib/api'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -20,11 +19,11 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.redirect(redirectURL, {
     headers: {
-      'Set-Cookie': `token=${token}; Path=/; max-age=${cookieExpiresInSeconds};`,
-
       // 'nomeCookie=valor; Path=/; max-age=;'
       // significa que a partir da url `/` o cookie estara disponivel em todas aplicação
       // max-age = data de eexpiracao do cookie em segundos
+
+      'Set-Cookie': `token=${token}; Path=/; max-age=${cookieExpiresInSeconds};`,
     },
   })
 }
