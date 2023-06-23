@@ -11,6 +11,8 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
 
+  const redirectTo = request.cookies.get('redirectTo')?.value
+
   // Envio do GitHub code para o back-end
   const registerResponse = await api.post('/register', {
     code,
@@ -18,7 +20,7 @@ export async function GET(request: NextRequest) {
 
   const { token } = registerResponse?.data
 
-  const redirectURL = new URL('/', request.url) // request.url contem a url raiz da aplicação
+  const redirectURL = redirectTo ?? new URL('/', request.url) // request.url contem a url raiz da aplicação ou seja qual url original o user estava tentando acessar
 
   const cookieExpiresInSeconds = 60 * 60 * 24 * 30
 
