@@ -15,6 +15,7 @@ import NLWLogo from './src/assets/nlw-spacetime-logo.svg'
 import { styled } from 'nativewind'
 import { useAuthRequest, makeRedirectUri } from 'expo-auth-session'
 import { useEffect } from 'react'
+import { api } from './src/lib/api'
 
 // Hack de estilo para componentes nao nativos do React Native
 // Permite que eu use o Nativewind + Tailwind no compoente de SVG
@@ -56,7 +57,16 @@ export default function App() {
 
     if (response?.type === 'success') {
       const { code } = response.params
-      console.log(code)
+
+      api
+        .post('register', {
+          code,
+        })
+        .then((response) => {
+          const { token } = response.data
+
+          console.log(token)
+        })
     }
   }, [response])
 
