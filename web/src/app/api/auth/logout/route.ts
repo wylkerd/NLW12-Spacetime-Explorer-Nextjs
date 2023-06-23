@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 /*  
-  Este GET e acionado por de baixo dos panos, redireciona para pagina inicial
+  Este GET e acionado por de baixo dos panos, e REDIRECIONA para pagina inicial
 */
 export async function GET(request: NextRequest) {
   const redirectURL = new URL('/', request.url) // request.url contem a url raiz da aplicação 'Home'
