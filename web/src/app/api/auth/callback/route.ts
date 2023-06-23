@@ -2,6 +2,11 @@
 import { api } from '@/lib/api'
 import { NextRequest, NextResponse } from 'next/server'
 
+/*  
+  Este GET e acionado quando o Github abre uma rota de callback, 
+  ao ser acessada, o POST é feito na nossa api e guarda o Token nos Cookies por de baixo dos panos 
+*/
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
