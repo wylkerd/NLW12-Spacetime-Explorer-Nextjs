@@ -13,10 +13,20 @@ import blurBg from './src/assets/bg-blur.png'
 import Stripes from './src/assets/stripes.svg' // Impotacoes SVG virao componentes com a lib react-native-svg-transformer
 import NLWLogo from './src/assets/nlw-spacetime-logo.svg'
 import { styled } from 'nativewind'
+import { useAuthRequest, makeRedirectUri } from 'expo-auth-session'
+import { useEffect } from 'react'
 
 // Hack de estilo para componentes nao nativos do React Native
 // Permite que eu use o Nativewind + Tailwind no compoente de SVG
 const StyleStripes = styled(Stripes)
+
+// Endpoint
+const discovery = {
+  authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+  tokenEndpoint: 'https://github.com/login/oauth/access_token',
+  revocationEndpoint:
+    'https://github.com/settings/connections/applications/48f5484744669c001705',
+}
 
 export default function App() {
   const [hasLoadedFonts] = useFonts({
@@ -24,6 +34,31 @@ export default function App() {
     Roboto_700Bold,
     BaiJamjuree_700Bold,
   })
+
+  const [request, response, signInWithGitHub] = useAuthRequest(
+    {
+      clientId: '48f5484744669c001705',
+      scopes: ['identity'],
+      redirectUri: makeRedirectUri({
+        scheme: 'nlwspacetime',
+      }),
+    },
+    discovery,
+  )
+
+  useEffect(() => {
+    // console.log(
+    //   'REDIRECT URI DO APP',
+    //   makeRedirectUri({
+    //     scheme: 'nlwspacetime',
+    //   }),
+    // )
+
+    if (response?.type === 'success') {
+      const { code } = response.params
+      console.log(code)
+    }
+  }, [response])
 
   // So mostrara a interface depois que as fontes carregarem
   if (!hasLoadedFonts) {
@@ -54,6 +89,7 @@ export default function App() {
         <TouchableOpacity
           activeOpacity={0.7}
           className="rounded-full bg-green-500 px-5 py-2"
+          onPress={() => signInWithGitHub()}
         >
           <Text className="font-alt text-sm uppercase text-black">
             Cadastrar lembrança
