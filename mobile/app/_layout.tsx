@@ -13,17 +13,29 @@ import blurBg from '../src/assets/bg-blur.png'
 import Stripes from '../src/assets/stripes.svg' // Impotacoes SVG virao componentes com a lib react-native-svg-transformer
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import * as SecureStore from 'expo-secure-store'
+import { useEffect, useState } from 'react'
 
 // Hack de estilo para componentes nao nativos do React Native
 // Permite que eu use o Nativewind + Tailwind no compoente de SVG
 const StyleStripes = styled(Stripes)
 
 export default function Layout() {
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState<
+    null | boolean
+  >(null)
+
   const [hasLoadedFonts] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
     BaiJamjuree_700Bold,
   })
+
+  useEffect(() => {
+    SecureStore.getItemAsync('token').then((token) => {
+      setIsUserAuthenticated(!!token) // !! Converte para booleano caso exista ou nao
+    })
+  }, [])
 
   // So mostrara a interface depois que as fontes carregarem
   if (!hasLoadedFonts) {
@@ -45,7 +57,12 @@ export default function Layout() {
           headerShown: false,
           contentStyle: { backgroundColor: 'transparent' }, // Herda o background deste layout
         }}
-      />
+      >
+        {/* Rotas da aplicação - Tem que ter o mesmo nome do arquivo desejado, ex: index.tsx */}
+        {/* Redirect = Redireciona para proxima rota da Stack cado o valor passado seja TRUE */}
+        <Stack.Screen name="index" redirect={isUserAuthenticated} />{' '}
+        <Stack.Screen name="memories" />
+      </Stack>
     </ImageBackground>
   )
 }
