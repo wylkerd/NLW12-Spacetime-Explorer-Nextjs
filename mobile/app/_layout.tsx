@@ -61,6 +61,7 @@ export default function Layout() {
         {/* Rotas da aplicação - Tem que ter o mesmo nome do arquivo desejado, ex: index.tsx */}
         {/* Redirect = Redireciona para proxima rota da Stack cado o valor passado seja TRUE */}
         <Stack.Screen name="index" redirect={isUserAuthenticated} />{' '}
+        <Stack.Screen name="new" />
         <Stack.Screen name="memories" />
       </Stack>
     </ImageBackground>
