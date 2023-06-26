@@ -15,7 +15,7 @@ export function MediaPicker() {
 
     const previewURL = URL.createObjectURL(files[0])
 
-    console.log(previewURL)
+    // console.log(previewURL)
 
     setPreview(previewURL)
   }
@@ -24,6 +24,7 @@ export function MediaPicker() {
     <>
       <input
         onChange={onFileSelected}
+        name="coverUrl" // Form utiliza
         type="file"
         accept="image/*"
         id="media"
