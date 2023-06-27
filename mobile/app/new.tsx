@@ -12,8 +12,10 @@ import { Link } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
+import * as SecureStore from 'expo-secure-store'
 
 import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
+import { api } from '../src/lib/api'
 
 export default function NewMemory() {
   // hook nativo que retorna os tamanhos de areas seguras da tela (fora da Status bar, por exemplo)
@@ -39,8 +41,30 @@ export default function NewMemory() {
     }
   }
 
-  function handleCreateMemory() {
-    console.log(content, isPublic)
+  async function handleCreateMemory() {
+    const token = await SecureStore.getItemAsync('token')
+
+    let coverUrl = ''
+
+    if (preview) {
+      const uploadFormData = new FormData() // Multipart Form para envio da imagem
+
+      uploadFormData.append('file', {
+        uri: preview,
+        name: 'image.jpg', // Pode ser qualquer nome, pois nao sera utilizado
+        type: 'image/jpeg',
+      } as any)
+
+      const uploadResponse = await api.post('/upload', uploadFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      coverUrl = uploadResponse.data.fileUrl
+
+      console.log(coverUrl)
+    }
   }
 
   return (
@@ -99,6 +123,7 @@ export default function NewMemory() {
         <TextInput
           multiline
           value={content}
+          textAlignVertical="top"
           onChangeText={setContent}
           className="p-0 font-body text-lg text-gray-50"
           placeholderTextColor={'#56565a'}

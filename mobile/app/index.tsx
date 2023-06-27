@@ -8,7 +8,7 @@ import * as SecureStore from 'expo-secure-store'
 import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
 import { api } from '../src/lib/api'
 
-// Endpoint
+// Endpoint Configs padrao expo-auth-session
 const discovery = {
   authorizationEndpoint: 'https://github.com/login/oauth/authorize',
   tokenEndpoint: 'https://github.com/login/oauth/access_token',
