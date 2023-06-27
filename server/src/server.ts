@@ -36,8 +36,8 @@ app.register(memoriesRoutes)
 app
   .listen({
     port: 3333,
-    // host: 'localhost',
-    host: '0.0.0.0',
+    host: 'localhost',
+    // host: '0.0.0.0',
   })
   .then(() => {
     console.log('🚀 HTTP server running on port http://localhost:3333') // emoji adicionado com windows + .
