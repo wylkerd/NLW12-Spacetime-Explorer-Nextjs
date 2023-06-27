@@ -5,17 +5,42 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as SecureStore from 'expo-secure-store'
 
 import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
+import { useEffect, useState } from 'react'
+import { api } from '../src/lib/api'
+
+interface Memory {
+  coverUrl: string
+  excerpt: string
+  id: string
+}
 
 export default function Memories() {
   // hook nativo que retorna os tamanhos de areas seguras da tela (fora da Status bar, por exemplo)
   const { bottom, top } = useSafeAreaInsets()
   const router = useRouter()
+  const [memories, setMemories] = useState<Memory[]>([])
 
   async function signOut() {
     await SecureStore.deleteItemAsync('token')
 
     router.push('/')
   }
+
+  async function loadMemories() {
+    const token = await SecureStore.getItemAsync('token')
+
+    const response = await api.get('/memories', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    setMemories(response.data)
+  }
+
+  useEffect(() => {
+    loadMemories()
+  }, [])
 
   return (
     <ScrollView
@@ -44,41 +69,41 @@ export default function Memories() {
       </View>
 
       <View className="mt-6 space-y-10">
-        <View className="space-y-4">
-          <View className="flex-row items-center gap-2">
-            {/* Tracinho */}
-            <View className="h-px w-5 bg-gray-50" />
-            <Text className="font-body text-xs text-gray-100">
-              12 de Abril, 2023
-            </Text>
-          </View>
-          <View className="space-y-4 px-8">
-            <Image
-              source={{
-                uri: 'http://192.168.0.109:3333/uploads/c06910e4-635e-4e81-992d-023343515def.jpg',
-              }}
-              className="aspect-video rounded-lg"
-              alt=""
-            />
-            <Text className="font-body text-base leading-relaxed text-gray-100">
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using `Content here,
-              content here`, making it look like readable English.
-            </Text>
-
-            {/* asChild faz o TouchableOpacity ou o que tiver dentro, se comportar como o Link */}
-            <Link href="/memories/id" asChild>
-              <TouchableOpacity className="flex-row items-center gap-2">
-                <Text className="font-body text-sm text-gray-200">
-                  Ler mais
+        {memories.map((memory) => {
+          return (
+            <View key={memory.id} className="space-y-4">
+              <View className="flex-row items-center gap-2">
+                {/* Tracinho */}
+                <View className="h-px w-5 bg-gray-50" />
+                <Text className="font-body text-xs text-gray-100">
+                  12 de Abril, 2023
                 </Text>
-                <Icon name="arrow-right" size={16} color="#9e9ea0" />
-              </TouchableOpacity>
-            </Link>
-          </View>
-        </View>
+              </View>
+              <View className="space-y-4 px-8">
+                <Image
+                  source={{
+                    uri: memory.coverUrl,
+                  }}
+                  className="aspect-video rounded-lg"
+                  alt=""
+                />
+                <Text className="font-body text-base leading-relaxed text-gray-100">
+                  {memory.excerpt}
+                </Text>
+
+                {/* asChild faz o TouchableOpacity ou o que tiver dentro, se comportar como o Link */}
+                <Link href="/memories/id" asChild>
+                  <TouchableOpacity className="flex-row items-center gap-2">
+                    <Text className="font-body text-sm text-gray-200">
+                      Ler mais
+                    </Text>
+                    <Icon name="arrow-right" size={16} color="#9e9ea0" />
+                  </TouchableOpacity>
+                </Link>
+              </View>
+            </View>
+          )
+        })}
       </View>
     </ScrollView>
   )
