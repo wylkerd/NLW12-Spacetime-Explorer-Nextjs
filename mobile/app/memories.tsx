@@ -7,11 +7,16 @@ import * as SecureStore from 'expo-secure-store'
 import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
 import { useEffect, useState } from 'react'
 import { api } from '../src/lib/api'
+import dayjs from 'dayjs'
+import ptBr from 'dayjs/locale/pt-br'
+
+dayjs.locale(ptBr)
 
 interface Memory {
   coverUrl: string
   excerpt: string
   id: string
+  createdAt: string
 }
 
 export default function Memories() {
@@ -76,7 +81,7 @@ export default function Memories() {
                 {/* Tracinho */}
                 <View className="h-px w-5 bg-gray-50" />
                 <Text className="font-body text-xs text-gray-100">
-                  12 de Abril, 2023
+                  {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
                 </Text>
               </View>
               <View className="space-y-4 px-8">
