@@ -1,8 +1,12 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
-export function MediaPicker() {
+interface MediaPickerProps {
+  setHasPreview?: Dispatch<SetStateAction<Boolean>>
+}
+
+export function MediaPicker({ setHasPreview }: MediaPickerProps) {
   const [preview, setPreview] = useState<string | null>(null)
 
   /* Hack para descobrir o tipo de Event é so passar o mouse por cima do elemento e do onChange dele */
@@ -15,9 +19,8 @@ export function MediaPicker() {
 
     const previewURL = URL.createObjectURL(files[0])
 
-    // console.log(previewURL)
-
     setPreview(previewURL)
+    setHasPreview && setHasPreview(!!previewURL)
   }
 
   return (
