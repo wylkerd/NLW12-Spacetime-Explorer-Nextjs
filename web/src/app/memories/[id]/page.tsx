@@ -102,6 +102,16 @@ export default function MemoryDetail() {
     router.push('/')
   }
 
+  async function handleDeleteMemory() {
+    await api.delete(`/memories/${memoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return router.push('/')
+  }
+
   useEffect(() => {
     handleGetMemory()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -171,18 +181,28 @@ export default function MemoryDetail() {
           value={memoryContent}
           spellCheck="false" // eivta mostrar erros de digitação no navegador
           onChange={(e) => setMemoryContent(e.target.value)}
-          className="w-full flex-1 resize-none overflow-hidden rounded border-0 bg-transparent p-0 text-lg leading-relaxed text-gray-100 placeholder:text-gray-400 focus:ring-0"
+          className="w-full flex-1 resize-none rounded border-0 bg-transparent p-0 text-lg leading-relaxed text-gray-100 placeholder:text-gray-400 focus:ring-0"
           placeholder="Fique livre para adicionar fotos, vídeos e relatos sobre essa experiência que você quer lembrar para sempre."
         >
           {memoryContent}
         </textarea>
 
-        <button
-          type="submit"
-          className="inline-block self-end rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
-        >
-          Salvar
-        </button>
+        <div className="inline-block space-x-2 self-end">
+          <button
+            // type="submit"
+            onClick={handleDeleteMemory}
+            className="inline-block self-end rounded-full bg-red-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-red-600"
+          >
+            Deletar
+          </button>
+
+          <button
+            type="submit"
+            className="inline-block self-end rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
+          >
+            Salvar
+          </button>
+        </div>
       </form>
     </div>
   )

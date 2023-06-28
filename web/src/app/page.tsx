@@ -41,8 +41,6 @@ export default async function Home() {
     return <EmptyMemories />
   }
 
-  console.log(memories)
-
   return (
     <div className="flex flex-col gap-10 p-8">
       {memories.map((memory) => {
